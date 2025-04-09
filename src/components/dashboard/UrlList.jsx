@@ -98,6 +98,8 @@ export default function UrlList() {
               </span>
             </div>
             <div className="text-center">{urlInfo.changeCount}</div>
+            <div className="text-center">
+              {formatTime(urlInfo.lastChecked).slice(0, -3)}
             </div>
             <div className="text-center">
               {formatInterval(urlInfo.checkInterval)}
