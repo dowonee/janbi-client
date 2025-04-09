@@ -23,8 +23,8 @@ export default function AddUrlModal({ onClose }) {
 
       onClose();
       setUrlForm({ name: "", url: "", checkInterval: 21600 });
-    } catch (e) {
-      alert("에러가 발생했습니다.");
+    } catch {
+      alert("URL 추가 중 오류가 발생했습니다.");
     }
   };
 
