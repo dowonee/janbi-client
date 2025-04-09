@@ -88,10 +88,10 @@ export default function UrlList() {
               <span
                 className={`inline-flex urlInfos-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                   urlInfo.status === "정상"
-                    ? "bg-green-100 text-green-900"
+                    ? "bg-lime-100 text-slate-900"
                     : urlInfo.status === "변경감지"
-                      ? "bg-violet-400 text-background"
-                      : "bg-red-100 text-red-800"
+                      ? "bg-blue-100 text-slate-900"
+                      : "bg-red-100 text-slate-900"
                 }`}
               >
                 {urlInfo.status}
