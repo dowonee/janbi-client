@@ -77,9 +77,9 @@ export default function UrlList() {
           <div className="text-center">체크 주기</div>
         </div>
 
-        {urls.map((urlInfo, idx) => (
+        {urls.map((urlInfo) => (
           <div
-            key={idx}
+            key={urlInfo._id}
             className="grid grid-cols-[1.2fr_2fr_1fr_1fr_1.5fr_1fr] px-4 py-3 text-sm text-gray-800 border-b urlInfos-center hover:bg-gray-50 transition-colors"
           >
             <div className="text-center">{urlInfo.name}</div>
