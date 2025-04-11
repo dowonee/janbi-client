@@ -16,9 +16,7 @@ export default function Sidebar() {
 
   return (
     <aside className="w-60 min-h-screen bg-white border-r shadow-sm p-4">
-      <h1 className="text-xl font-bold text-primary mb-6 text-center">
-        WhatJustChanged
-      </h1>
+      <h1 className="text-xl font-bold text-primary mb-6 text-center">JANBI</h1>
       <nav className="flex flex-col gap-2">
         {sidebarMenu.map((item) => (
           <NavLink
