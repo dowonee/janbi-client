@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { createUrl } from "../../api/urlApi";
+import { DAYS_OF_WEEK } from "../../utils/constants";
 
 export default function AddUrlModal({ onClose }) {
   const [urlForm, setUrlForm] = useState({
     name: "",
     url: "",
-    checkInterval: 21600,
+    dayOfWeek: "월",
+    hour: "10",
+    minute: "00",
   });
 
   const handleChange = (ev) => {
@@ -16,13 +19,19 @@ export default function AddUrlModal({ onClose }) {
     try {
       await createUrl({
         ...urlForm,
-        checkInterval: Number(urlForm.checkInterval),
+        scheduleTime: `${urlForm.hour}:${urlForm.minute}`,
       });
 
       alert("URL이 추가되었습니다.");
 
       onClose();
-      setUrlForm({ name: "", url: "", checkInterval: 21600 });
+      setUrlForm({
+        name: "",
+        url: "",
+        dayOfWeek: "월",
+        hour: "10",
+        minute: "00",
+      });
     } catch {
       alert("URL 추가 중 오류가 발생했습니다.");
     }
@@ -48,17 +57,46 @@ export default function AddUrlModal({ onClose }) {
           value={urlForm.url}
           onChange={handleChange}
         />
+        <label className="block text-sm font-medium mb-1">알림 요일</label>
         <select
-          name="checkInterval"
-          className="w-full mb-4 p-2 border rounded"
-          value={urlForm.checkInterval}
+          name="dayOfWeek"
+          value={urlForm.dayOfWeek}
           onChange={handleChange}
+          className="w-full mb-4 p-2 border rounded"
         >
-          <option value={21600}>6시간</option>
-          <option value={86400}>1일</option>
-          <option value={259200}>3일</option>
-          <option value={604800}>7일</option>
+          {DAYS_OF_WEEK.map((day) => (
+            <option key={day} value={day}>
+              {day}
+            </option>
+          ))}
         </select>
+        <label className="block text-sm font-medium mb-1">알림 시간</label>
+        <div className="flex gap-2 mb-4">
+          <select
+            name="hour"
+            value={urlForm.hour}
+            onChange={handleChange}
+            className="w-1/2 p-2 border rounded"
+          >
+            {Array.from({ length: 24 }, (_, i) => (
+              <option key={i} value={String(i).padStart(2, "0")}>
+                {String(i).padStart(2, "0")}시
+              </option>
+            ))}
+          </select>
+          <select
+            name="minute"
+            value={urlForm.minute}
+            onChange={handleChange}
+            className="w-1/2 p-2 border rounded"
+          >
+            {["00", "30"].map((m) => (
+              <option key={m} value={m}>
+                {m}분
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="flex justify-end gap-2">
           <button
             className="text-sm px-3 py-1 border rounded"
