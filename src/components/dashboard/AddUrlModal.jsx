@@ -16,6 +16,11 @@ export default function AddUrlModal({ onClose }) {
   };
 
   const handleSubmit = async () => {
+    if (!urlForm.name.trim() || !urlForm.url.trim()) {
+      alert("이름과 URL을 모두 입력해주세요.");
+      return;
+    }
+
     try {
       await createUrl({
         ...urlForm,
