@@ -6,53 +6,50 @@ export default function UrlList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const urls = [
     {
+      _id: "1",
       name: "A 홈페이지",
       url: "https://www.a.com",
       status: "변경감지",
       changeCount: 5,
       lastChecked: "2024-04-08T15:00:00Z",
+      dayOfWeek: "월",
+      scheduleTime: "10:00",
     },
     {
+      _id: "2",
       name: "A 기능 페이지",
       url: "https://www.a.com/feat",
       status: "정상",
       changeCount: 2,
       lastChecked: "2024-04-09T09:12:00Z",
+      dayOfWeek: "화",
+      scheduleTime: "09:30",
     },
     {
+      _id: "3",
       name: "B 상세 페이지",
       url: "https://www.b.com/details",
       status: "정상",
       changeCount: 8,
       lastChecked: "2024-04-08T23:12:00Z",
+      dayOfWeek: "수",
+      scheduleTime: "15:30",
     },
     {
+      _id: "4",
       name: "B 대시보드",
       url: "https://www.b.com/dashboard",
       status: "오류",
       changeCount: 0,
       lastChecked: null,
+      dayOfWeek: "금",
+      scheduleTime: "08:00",
     },
   ];
 
   const formatTime = (time) => {
     if (!time) return "-";
     return new Date(time).toLocaleString("ko-KR");
-  };
-
-  const formatInterval = (seconds) => {
-    switch (seconds) {
-      case 21600:
-        return "6시간";
-      case 86400:
-        return "1일";
-      case 259200:
-        return "3일";
-      case 604800:
-        return "7일";
-      default:
-        return "6시간";
-    }
   };
 
   return (
@@ -80,7 +77,7 @@ export default function UrlList() {
               <div className="text-center">상태</div>
               <div className="text-center">변경 횟수</div>
               <div className="text-center">마지막 확인</div>
-              <div className="text-center">체크 주기</div>
+              <div className="text-center">알림 설정</div>
             </div>
 
             {urls.map((urlInfo) => (
@@ -108,7 +105,7 @@ export default function UrlList() {
                   {formatTime(urlInfo.lastChecked).slice(0, -3)}
                 </div>
                 <div className="text-center">
-                  {formatInterval(urlInfo.checkInterval)}
+                  {urlInfo.dayOfWeek}요일 {urlInfo.scheduleTime}
                 </div>
               </div>
             ))}
