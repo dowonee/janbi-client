@@ -19,3 +19,12 @@ export default function App() {
     </Router>
   );
 }
+
+function LayoutWithSidebar({ children }) {
+  return (
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
+      <main className="flex-1 p-6">{children}</main>
+    </div>
+  );
+}
