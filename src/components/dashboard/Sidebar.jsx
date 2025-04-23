@@ -1,8 +1,9 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { LayoutDashboard, LinkIcon, History, Settings } from "lucide-react";
 
 export default function Sidebar() {
+  const navigate = useNavigate();
   const sidebarMenu = [
     {
       tabName: "대시보드",
@@ -16,7 +17,12 @@ export default function Sidebar() {
 
   return (
     <aside className="w-60 min-h-screen bg-white border-r shadow-sm p-4">
-      <h1 className="text-xl font-bold text-primary mb-6 text-center">JANBI</h1>
+      <h1
+        className="text-xl font-bold text-primary mb-6 text-center cursor-pointer"
+        onClick={() => navigate("/")}
+      >
+        JANBI
+      </h1>
       <nav className="flex flex-col gap-2">
         {sidebarMenu.map((item) => (
           <NavLink
