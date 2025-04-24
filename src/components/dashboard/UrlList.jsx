@@ -1,55 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { PlusIcon } from "lucide-react";
+import { fetchUrls } from "../../api/urlApi";
 import AddUrlModal from "./AddUrlModal";
 
 export default function UrlList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const urls = [
-    {
-      _id: "1",
-      name: "A 홈페이지",
-      url: "https://www.a.com",
-      status: "변경감지",
-      changeCount: 5,
-      lastChecked: "2024-04-08T15:00:00Z",
-      dayOfWeek: "월",
-      scheduleTime: "10:00",
-    },
-    {
-      _id: "2",
-      name: "A 기능 페이지",
-      url: "https://www.a.com/feat",
-      status: "정상",
-      changeCount: 2,
-      lastChecked: "2024-04-09T09:12:00Z",
-      dayOfWeek: "화",
-      scheduleTime: "09:30",
-    },
-    {
-      _id: "3",
-      name: "B 상세 페이지",
-      url: "https://www.b.com/details",
-      status: "정상",
-      changeCount: 8,
-      lastChecked: "2024-04-08T23:12:00Z",
-      dayOfWeek: "수",
-      scheduleTime: "15:30",
-    },
-    {
-      _id: "4",
-      name: "B 대시보드",
-      url: "https://www.b.com/dashboard",
-      status: "오류",
-      changeCount: 0,
-      lastChecked: null,
-      dayOfWeek: "금",
-      scheduleTime: "08:00",
-    },
-  ];
+  const [urls, setUrls] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const loadUrlList = async () => {
+      const responsedUrlList = await fetchUrls();
+      setUrls(responsedUrlList.urlList);
+    };
+
+    loadUrlList();
+  }, [location]);
 
   const formatTime = (time) => {
     if (!time) return "-";
-    return new Date(time).toLocaleString("ko-KR");
+
+    return new Date(time).toLocaleString("ko-KR").slice(0, -3);
   };
 
   return (
