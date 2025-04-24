@@ -4,6 +4,7 @@ import Sidebar from "./components/dashboard/Sidebar";
 import Dashboard from "./pages/Dashboard";
 import IntroPage from "./pages/Intro";
 import History from "./pages/History";
+import UrlDetail from "./pages/UrlDetail";
 
 export default function App() {
   return (
@@ -23,6 +24,14 @@ export default function App() {
           element={
             <LayoutWithSidebar>
               <History />
+            </LayoutWithSidebar>
+          }
+        />
+        <Route
+          path="/history/:id"
+          element={
+            <LayoutWithSidebar>
+              <UrlDetail />
             </LayoutWithSidebar>
           }
         />
