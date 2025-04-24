@@ -71,11 +71,10 @@ export default function UrlList() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-[1.2fr_2fr_1fr_1fr_1.5fr_1fr] bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600 border-y">
+            <div className="grid grid-cols-[1.2fr_2fr_1fr_2fr_1.5fr] bg-gray-100 px-4 py-2 text-xs font-semibold text-gray-600 border-y">
               <div className="text-center">이름</div>
               <div className="text-center">URL</div>
               <div className="text-center">상태</div>
-              <div className="text-center">변경 횟수</div>
               <div className="text-center">마지막 확인</div>
               <div className="text-center">알림 설정</div>
             </div>
@@ -83,7 +82,8 @@ export default function UrlList() {
             {urls.map((urlInfo) => (
               <div
                 key={urlInfo._id}
-                className="grid grid-cols-[1.2fr_2fr_1fr_1fr_1.5fr_1fr] px-4 py-3 text-sm text-gray-800 border-b justify-center hover:bg-gray-50 transition-colors"
+                onClick={() => navigate(`/history/${urlInfo._id}`)}
+                className="grid grid-cols-[1.2fr_2fr_1fr_2fr_1.5fr] px-4 py-3 text-sm text-gray-800 border-b justify-center hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 <div className="text-center">{urlInfo.name}</div>
                 <div className="text-center">{urlInfo.url}</div>
@@ -100,9 +100,8 @@ export default function UrlList() {
                     {urlInfo.status}
                   </span>
                 </div>
-                <div className="text-center">{urlInfo.changeCount}</div>
                 <div className="text-center">
-                  {formatTime(urlInfo.lastChecked).slice(0, -3)}
+                  {formatTime(urlInfo.updatedAt)}
                 </div>
                 <div className="text-center">
                   {urlInfo.dayOfWeek}요일 {urlInfo.scheduleTime}
