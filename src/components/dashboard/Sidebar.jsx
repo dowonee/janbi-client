@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, LinkIcon, History, Settings } from "lucide-react";
+import { LayoutDashboard, History, Settings } from "lucide-react";
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -10,7 +10,6 @@ export default function Sidebar() {
       to: "/dashboard",
       icon: <LayoutDashboard size={18} />,
     },
-    { tabName: "URL 목록", to: "/urls", icon: <LinkIcon size={18} /> },
     { tabName: "변경 내역", to: "/history", icon: <History size={18} /> },
     { tabName: "설정", to: "/settings", icon: <Settings size={18} /> },
   ];
