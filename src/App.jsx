@@ -5,12 +5,14 @@ import Dashboard from "./pages/Dashboard";
 import IntroPage from "./pages/Intro";
 import History from "./pages/History";
 import UrlDetail from "./pages/UrlDetail";
+import AuthSuccess from "./pages/AuthSuccess";
 
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<IntroPage />} />
+        <Route path="/auth/success" element={<AuthSuccess />} />
         <Route
           path="/dashboard"
           element={
