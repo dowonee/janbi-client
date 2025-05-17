@@ -1,6 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Sidebar from "./components/dashboard/Sidebar";
+import Header from "./components/common/Header";
 import Dashboard from "./pages/Dashboard";
 import IntroPage from "./pages/Intro";
 import History from "./pages/History";
@@ -10,6 +16,19 @@ import AuthSuccess from "./pages/AuthSuccess";
 export default function App() {
   return (
     <Router>
+      <AppLayout />
+    </Router>
+  );
+}
+
+function AppLayout() {
+  const location = useLocation();
+
+  const isIntro = location.pathname === "/";
+
+  return (
+    <>
+      {isIntro && <Header />}
       <Routes>
         <Route path="/" element={<IntroPage />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
@@ -38,7 +57,7 @@ export default function App() {
           }
         />
       </Routes>
-    </Router>
+    </>
   );
 }
 
