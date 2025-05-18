@@ -9,6 +9,8 @@ export default function UrlDetail() {
   const [logs, setLogs] = useState([]);
 
   useEffect(() => {
+    if (!id) return;
+
     const loadUrlHistory = async () => {
       const allUrls = await fetchUrls();
       const targetUrl = allUrls.urlList.find((url) => url._id === id);
@@ -21,7 +23,7 @@ export default function UrlDetail() {
     loadUrlHistory();
   }, [id]);
 
-  if (!urlInfo) {
+  if (!urlInfo || !logs) {
     return <p className="p-6">URL 정보를 불러오고 있습니다.</p>;
   }
 
