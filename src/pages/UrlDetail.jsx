@@ -20,11 +20,47 @@ export default function UrlDetail() {
       const targetHistory = await fetchUrlHistory(id);
 
       setUrlInfo(targetUrl);
-      setLogs(targetHistory.urlHistoryLogs);
+      const mergedList = mergeLogList(targetHistory.urlHistoryLogs || []);
+      setLogs(mergedList);
     };
 
     loadUrlHistory();
   }, [id]);
+
+  const normalize = (log) => {
+    return (log.changedContents || []).map((item) => ({
+      selector: item.selector,
+      afterHtml: (item.afterHtml || "").trim(),
+    }));
+  };
+
+  const mergeLogList = (rawLogs) => {
+    if (!rawLogs || rawLogs.length === 0) return [];
+
+    const result = [];
+
+    for (let i = 0; i < rawLogs.length; i++) {
+      const curr = rawLogs[i];
+      const prev = result[result.length - 1];
+
+      const currNormalized = JSON.stringify(normalize(curr));
+
+      if (!prev) {
+        result.push(curr);
+        continue;
+      }
+
+      const prevNormalized = JSON.stringify(normalize(prev));
+      const isSameChange =
+        prevNormalized === currNormalized && prev.isChanged === curr.isChanged;
+
+      if (!isSameChange) {
+        result.push(curr);
+      }
+    }
+
+    return result;
+  };
 
   if (!urlInfo || !logs) {
     return <p className="p-6">URL 정보를 불러오고 있습니다.</p>;
