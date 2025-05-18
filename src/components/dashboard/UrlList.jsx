@@ -28,7 +28,7 @@ export default function UrlList() {
     <div className="bg-white rounded-lg shadow-sm max-w-6xl mx-auto">
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-medium text-gray-900">모니터링 URL</h2>
+          <h2 className="text-xl font-bold mb-6 text-gray-800">모니터링 URL</h2>
         </div>
         {urls.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-gray-500 text-sm">
