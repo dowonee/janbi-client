@@ -1,16 +1,11 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { LayoutDashboard, History, Settings } from "lucide-react";
+import { History, Settings } from "lucide-react";
 
 export default function Sidebar() {
   const navigate = useNavigate();
   const sidebarMenu = [
-    {
-      tabName: "대시보드",
-      to: "/dashboard",
-      icon: <LayoutDashboard size={18} />,
-    },
-    { tabName: "변경 내역", to: "/history", icon: <History size={18} /> },
+    { tabName: "변경내역", to: "/history", icon: <History size={18} /> },
     { tabName: "설정", to: "/settings", icon: <Settings size={18} /> },
   ];
 
