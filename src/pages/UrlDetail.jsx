@@ -20,46 +20,41 @@ export default function UrlDetail() {
       const targetHistory = await fetchUrlHistory(id);
 
       setUrlInfo(targetUrl);
-      const mergedList = mergeLogList(targetHistory.urlHistoryLogs || []);
+      const mergedList = sortAndMergeLogs(targetHistory.urlHistoryLogs || []);
       setLogs(mergedList);
     };
 
     loadUrlHistory();
   }, [id]);
 
-  const normalize = (log) => {
-    return (log.changedContents || []).map((item) => ({
-      selector: item.selector,
-      afterHtml: (item.afterHtml || "").trim(),
-    }));
-  };
-
-  const mergeLogList = (rawLogs) => {
+  const sortAndMergeLogs = (rawLogs) => {
     if (!rawLogs || rawLogs.length === 0) return [];
 
-    const result = [];
+    const sortedLogs = [...rawLogs].sort(
+      (a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime),
+    );
 
-    for (let i = 0; i < rawLogs.length; i++) {
-      const curr = rawLogs[i];
-      const prev = result[result.length - 1];
+    const normalize = (log) =>
+      (log.changedContents || []).map((item) => ({
+        selector: item.selector,
+        afterHtml: (item.afterHtml || "").trim(),
+      }));
 
-      const currNormalized = JSON.stringify(normalize(curr));
+    const merged = [];
 
-      if (!prev) {
-        result.push(curr);
+    for (const log of sortedLogs) {
+      const prev = merged[merged.length - 1];
+      if (
+        prev &&
+        prev.isChanged === log.isChanged &&
+        JSON.stringify(normalize(prev)) === JSON.stringify(normalize(log))
+      ) {
         continue;
       }
-
-      const prevNormalized = JSON.stringify(normalize(prev));
-      const isSameChange =
-        prevNormalized === currNormalized && prev.isChanged === curr.isChanged;
-
-      if (!isSameChange) {
-        result.push(curr);
-      }
+      merged.push(log);
     }
 
-    return result;
+    return merged;
   };
 
   if (!urlInfo || !logs) {
