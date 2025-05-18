@@ -11,32 +11,42 @@ export default function HistoryLog({ logs }) {
 
   return (
     <div className="space-y-3 text-sm">
-      {logs.map((log) => (
-        <div
-          key={log._id}
-          className="p-4 border rounded hover:bg-gray-50 w-full max-w-full overflow-x-hidden"
-        >
-          <div className="flex items-center justify-between">
-            <p className="font-medium">
-              {new Date(log.scheduledTime).toLocaleString("ko-KR")}
-            </p>
-            <span
-              className={`px-2 py-0.5 text-xs rounded ${
-                log.isChanged
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-gray-100 text-gray-500"
-              }`}
-            >
-              {log.isChanged ? "변경 감지됨" : "초기 상태"}
-            </span>
-          </div>
-          {log.changedContents?.length > 0 && (
-            <ul className="mt-3 space-y-3">
-              {log.changedContents.map((change, i) => {
-                return (
+      {logs.map((log, index) => {
+        const isChanged = log.isChanged;
+
+        let statusLabel = "";
+        let statusStyle = "";
+
+        if (index === logs.length - 1) {
+          statusLabel = "초기 상태";
+          statusStyle = "bg-gray-100 text-gray-500";
+        } else if (log.isChanged) {
+          statusLabel = "변경 감지됨";
+          statusStyle = "bg-blue-100 text-blue-700";
+        } else {
+          statusLabel = "변경 없음";
+          statusStyle = "bg-gray-100 text-gray-500";
+        }
+
+        return (
+          <div
+            key={log._id}
+            className="p-4 border rounded hover:bg-gray-50 w-full max-w-full overflow-x-hidden"
+          >
+            <div className="flex items-center justify-between">
+              <p className="font-medium">
+                {new Date(log.scheduledTime).toLocaleString("ko-KR")}
+              </p>
+              <span className={`px-2 py-0.5 text-xs rounded ${statusStyle}`}>
+                {statusLabel}
+              </span>
+            </div>
+            {log.changedContents?.length > 0 && (
+              <ul className="mt-3 space-y-3">
+                {log.changedContents.map((change, i) => (
                   <li key={i} className="text-xs w-full max-w-full">
                     <div className="bg-gray-100 p-2 rounded space-y-1">
-                      {log.isChanged && (
+                      {isChanged ? (
                         <>
                           <div className="text-red-600">
                             <strong>Before:</strong>{" "}
@@ -51,8 +61,7 @@ export default function HistoryLog({ logs }) {
                             </span>
                           </div>
                         </>
-                      )}
-                      {!log.isChanged && (
+                      ) : (
                         <div className="text-gray-700">
                           <strong>내용:</strong>{" "}
                           <span className="break-all">{change.afterHtml}</span>
@@ -60,12 +69,12 @@ export default function HistoryLog({ logs }) {
                       )}
                     </div>
                   </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-      ))}
+                ))}
+              </ul>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
