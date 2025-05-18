@@ -12,6 +12,7 @@ import IntroPage from "./pages/Intro";
 import History from "./pages/History";
 import UrlDetail from "./pages/UrlDetail";
 import AuthSuccess from "./pages/AuthSuccess";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -56,6 +57,7 @@ function AppLayout() {
             </LayoutWithSidebar>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
