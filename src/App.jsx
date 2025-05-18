@@ -13,6 +13,7 @@ import History from "./pages/History";
 import UrlDetail from "./pages/UrlDetail";
 import AuthSuccess from "./pages/AuthSuccess";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ function AppLayout() {
       {isIntro && <Header />}
       <Routes>
         <Route path="/" element={<IntroPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
         <Route
           path="/dashboard"
