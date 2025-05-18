@@ -5,7 +5,7 @@ export default function AuthSuccess() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/dashboard");
+    navigate("/history");
   }, [navigate]);
 
   return <p className="p-6">로그인 중입니다</p>;
