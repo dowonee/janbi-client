@@ -2,20 +2,25 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
+  withCredentials: true,
+});
+
 export async function fetchUrls() {
-  const response = await axios.get(`${BASE_URL}/urls`);
+  const response = await axiosInstance.get("/urls");
 
   return response.data;
 }
 
 export async function fetchUrlHistory(id) {
-  const response = await axios.get(`${BASE_URL}/urls/${id}/history`);
+  const response = await axiosInstance.get(`/urls/${id}/history`);
 
   return response.data;
 }
 
 export async function createUrl(data) {
-  const response = await axios.post(`${BASE_URL}/urls`, data);
+  const response = await axiosInstance.post("/urls", data);
 
   return response.data;
 }
