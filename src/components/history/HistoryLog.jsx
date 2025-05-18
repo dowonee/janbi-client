@@ -33,13 +33,8 @@ export default function HistoryLog({ logs }) {
           {log.changedContents?.length > 0 && (
             <ul className="mt-3 space-y-3">
               {log.changedContents.map((change, i) => {
-                const [type, selector] = change.selector.split(":");
-
                 return (
                   <li key={i} className="text-xs w-full max-w-full">
-                    <p className="font-medium text-gray-700 mb-1 text-wrap break-words whitespace-pre-wrap overflow-hidden max-w-full w-full">
-                      [{type.toUpperCase()}] {selector}
-                    </p>
                     <div className="bg-gray-100 p-2 rounded space-y-1">
                       {log.isChanged && (
                         <>
