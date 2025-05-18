@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { PlusIcon } from "lucide-react";
 import { fetchUrls } from "../../api/urlApi";
 import AddUrlModal from "./AddUrlModal";
 
@@ -30,13 +29,6 @@ export default function UrlList() {
       <div className="p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-medium text-gray-900">모니터링 URL</h2>
-          <button
-            className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-indigo-700"
-            onClick={() => setIsModalOpen(true)}
-          >
-            <PlusIcon className="h-4 w-4 mr-2" />
-            URL 추가
-          </button>
         </div>
         {urls.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-gray-500 text-sm">
