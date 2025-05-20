@@ -24,3 +24,15 @@ export async function createUrl(data) {
 
   return response.data;
 }
+
+export async function fetchUserProfile() {
+  const response = await axiosInstance.get("/user/profile");
+
+  return response.data;
+}
+
+export async function logout() {
+  const response = await axiosInstance.post("/user/logout");
+
+  return response.data;
+}
