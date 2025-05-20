@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
+import LogoutButton from "./LogoutButton";
+import { fetchUserProfile } from "../../api/urlApi";
 
 export default function Header() {
-  const hasToken = document.cookie.includes("accessToken");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogout = () => {
-    document.cookie =
-      "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie =
-      "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const profileData = await fetchUserProfile();
 
-    window.location.href = "/";
-  };
+        if (profileData?.user) {
+          setIsLoggedIn(true);
+        }
+      } catch {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
 
   return (
     <header className="w-full flex justify-end px-6 py-4 bg-white border-b">
-      {hasToken ? (
-        <button
-          onClick={handleLogout}
-          className="px-4 py-2 border border-slate-200 flex gap-2 items-center rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150"
-        >
-          로그아웃
-        </button>
+      {isLoggedIn ? (
+        <LogoutButton onLogout={() => setIsLoggedIn(false)} />
       ) : (
         <GoogleLoginButton />
       )}
