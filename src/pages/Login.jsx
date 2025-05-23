@@ -10,7 +10,7 @@ export default function Login() {
           Google 계정으로 로그인 후<br />
           모니터링 기능을 사용할 수 있어요.
         </p>
-        <GoogleLoginButton />
+        <GoogleLoginButton center />
       </div>
     </div>
   );
