@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import Sidebar from "./components/dashboard/Sidebar";
-import Header from "./components/common/Header";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AppLayout from "./components/layout/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import IntroPage from "./pages/Intro";
 import History from "./pages/History";
@@ -18,58 +11,43 @@ import Login from "./pages/Login";
 export default function App() {
   return (
     <Router>
-      <AppLayout />
-    </Router>
-  );
-}
-
-function AppLayout() {
-  const location = useLocation();
-
-  const isIntro = location.pathname === "/";
-
-  return (
-    <>
-      {isIntro && <Header />}
       <Routes>
-        <Route path="/" element={<IntroPage />} />
+        <Route
+          path="/"
+          element={
+            <AppLayout>
+              <IntroPage />
+            </AppLayout>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
         <Route
           path="/dashboard"
           element={
-            <LayoutWithSidebar>
+            <AppLayout>
               <Dashboard />
-            </LayoutWithSidebar>
+            </AppLayout>
           }
         />
         <Route
           path="/history"
           element={
-            <LayoutWithSidebar>
+            <AppLayout>
               <History />
-            </LayoutWithSidebar>
+            </AppLayout>
           }
         />
         <Route
           path="/history/:id"
           element={
-            <LayoutWithSidebar>
+            <AppLayout>
               <UrlDetail />
-            </LayoutWithSidebar>
+            </AppLayout>
           }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
-  );
-}
-
-function LayoutWithSidebar({ children }) {
-  return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
-      <main className="flex-1 p-6">{children}</main>
-    </div>
+    </Router>
   );
 }
