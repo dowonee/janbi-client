@@ -3,10 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { History, Settings } from "lucide-react";
 import { fetchUserProfile } from "../../api/urlApi";
 import LogoutButton from "../common/LogoutButton";
+import { useAuth } from "../../hooks/useAuth.jsx";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
 
   const sidebarMenu = [
     { tabName: "변경내역", to: "/history", icon: <History size={18} /> },
