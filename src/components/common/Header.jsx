@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
 import LogoutButton from "./LogoutButton";
-import { fetchUserProfile } from "../../api/urlApi";
+import { useAuth } from "../../hooks/useAuth.jsx";
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

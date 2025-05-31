@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function GoogleLoginButton({ center = false }) {
   const handleGoogleLogin = () => {
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;

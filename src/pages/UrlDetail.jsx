@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchUrlHistory, fetchUrls } from "../api/urlApi";
 import UrlHistoryItem from "../components/history/UrlHistoryItem";

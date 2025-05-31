@@ -1,4 +1,3 @@
-import React from "react";
 import HistoryLog from "./HistoryLog";
 
 export default function UrlHistoryItem({ urlInfo }) {

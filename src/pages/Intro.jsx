@@ -1,4 +1,3 @@
-import React from "react";
 import LandingHeader from "../components/intro/LandingHeader";
 import ActionButtons from "../components/intro/ActionButtons";
 import FeatureSection from "../components/intro/FeatureSection";

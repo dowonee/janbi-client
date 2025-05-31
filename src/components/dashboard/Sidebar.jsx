@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { History, Settings } from "lucide-react";
 import { fetchUserProfile } from "../../api/urlApi";

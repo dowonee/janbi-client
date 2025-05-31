@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { createUrl } from "../../api/urlApi";
 import { DAYS_OF_WEEK } from "../../utils/constants";
 

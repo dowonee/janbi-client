@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function HistoryLog({ logs }) {
   if (!logs || logs.length === 0) {
     return (

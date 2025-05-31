@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function LandingHeader() {
   return (
     <section className="bg-white py-20 text-center">

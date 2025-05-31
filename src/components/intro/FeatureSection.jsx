@@ -1,4 +1,3 @@
-import React from "react";
 import { ClockIcon, EyeIcon, MailIcon } from "lucide-react";
 
 const features = [
