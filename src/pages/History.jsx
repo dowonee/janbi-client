@@ -10,7 +10,8 @@ export default function History() {
   useEffect(() => {
     const loadUrlHistory = async () => {
       const urlRes = await fetchUrls();
-      setUrls(urlRes.urlList);
+
+      setUrls(urlRes?.urlList ?? []);
 
       const historyMap = {};
 

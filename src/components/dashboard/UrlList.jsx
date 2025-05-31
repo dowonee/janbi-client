@@ -12,7 +12,7 @@ export default function UrlList() {
   useEffect(() => {
     const loadUrlList = async () => {
       const responsedUrlList = await fetchUrls();
-      setUrls(responsedUrlList.urlList);
+      setUrls(responsedUrlList?.urlList ?? []);
     };
 
     loadUrlList();
