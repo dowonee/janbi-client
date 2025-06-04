@@ -13,6 +13,12 @@ export default function ActionButtons() {
     }
   };
 
+  const handleSlackAddButtonClick = () => {
+    const slackAuthUrl = `https://slack.com/oauth/v2/authorize?client_id=${import.meta.env.VITE_SLACK_CLIENT_ID}&scope=chat:write,incoming-webhook&redirect_uri=${import.meta.env.VITE_SLACK_REDIRECT_URI}`;
+
+    window.location.href = slackAuthUrl;
+  };
+
   return (
     <div className="mt-10 flex flex-wrap justify-center gap-3">
       <button
@@ -27,6 +33,12 @@ export default function ActionButtons() {
       >
         익스텐션 설치
       </a>
+      <button
+        onClick={handleSlackAddButtonClick}
+        className="px-6 py-3 border border-indigo-300 text-indigo-600 text-base font-semibold rounded-lg shadow hover:bg-indigo-50 transition"
+      >
+        Slack 앱 설치
+      </button>
     </div>
   );
 }
