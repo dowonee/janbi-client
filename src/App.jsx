@@ -7,6 +7,7 @@ import UrlDetail from "./pages/UrlDetail";
 import AuthSuccess from "./pages/AuthSuccess";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
+import Support from "./pages/Support";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
             </AppLayout>
           }
         />
+        <Route path="/support" element={<Support />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
         <Route

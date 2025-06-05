@@ -1,6 +1,7 @@
 import LandingHeader from "../components/intro/LandingHeader";
 import ActionButtons from "../components/intro/ActionButtons";
 import FeatureSection from "../components/intro/FeatureSection";
+import Footer from "../components/intro/Footer";
 
 export default function IntroPage() {
   return (
@@ -10,6 +11,7 @@ export default function IntroPage() {
         <ActionButtons />
         <FeatureSection />
       </main>
+      <Footer />
     </div>
   );
 }
