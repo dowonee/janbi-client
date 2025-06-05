@@ -8,6 +8,7 @@ import AuthSuccess from "./pages/AuthSuccess";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Support from "./pages/Support";
+import Terms from "./pages/Terms";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           }
         />
         <Route path="/support" element={<Support />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
         <Route
