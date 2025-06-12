@@ -7,6 +7,9 @@ export default function UrlHistoryItem({ urlInfo }) {
         <div>
           <p className="font-semibold text-gray-800">{urlInfo.name}</p>
           <p className="text-sm text-gray-600">{urlInfo.url}</p>
+          <p className="text-sm text-gray-500 mt-1">
+            알림 주기: {urlInfo.dayOfWeek}요일 {urlInfo.scheduleTime}
+          </p>
         </div>
       </button>
       <div className="p-4 bg-white">
