@@ -65,7 +65,7 @@ export default function History() {
 
   return (
     <div className="max-w-6xl mx-auto bg-white p-6 rounded shadow-sm">
-      <h2 className="text-xl font-bold mb-6 text-gray-800">최근 변경 요약</h2>
+      <h2 className="text-xl font-bold mb-6 text-gray-800">변경 내역</h2>
 
       {urls.length === 0 ? (
         <p className="text-sm text-gray-500">등록된 URL이 없습니다.</p>
