@@ -14,3 +14,36 @@ export function formatDate(date) {
     hour12: true,
   });
 }
+
+export function highlightDiff(before = "", after = "") {
+  let diffIndex = 0;
+
+  while (
+    diffIndex < before.length &&
+    diffIndex < after.length &&
+    before[diffIndex] === after[diffIndex]
+  ) {
+    diffIndex++;
+  }
+
+  const beforeMatched = before.slice(0, diffIndex);
+  const beforeChanged = before.slice(diffIndex);
+
+  const afterMatched = after.slice(0, diffIndex);
+  const afterChanged = after.slice(diffIndex);
+
+  return {
+    beforeJsx: (
+      <>
+        {beforeMatched}
+        <strong>{beforeChanged}</strong>
+      </>
+    ),
+    afterJsx: (
+      <>
+        {afterMatched}
+        <strong>{afterChanged}</strong>
+      </>
+    ),
+  };
+}
