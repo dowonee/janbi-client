@@ -1,3 +1,5 @@
+import { highlightDiff } from "../../utils/historyUtils";
+
 export default function HistoryLog({ logs }) {
   if (!logs || logs.length === 0) {
     return (
@@ -41,33 +43,37 @@ export default function HistoryLog({ logs }) {
             </div>
             {log.changedContents?.length > 0 && (
               <ul className="mt-3 space-y-3">
-                {log.changedContents.map((change, i) => (
-                  <li key={i} className="text-xs w-full max-w-full">
-                    <div className="bg-gray-100 p-2 rounded space-y-1">
-                      {isChanged ? (
-                        <>
-                          <div className="text-red-600">
-                            <strong>Before:</strong>{" "}
-                            <span className="break-all">
-                              {change.beforeHtml}
-                            </span>
-                          </div>
-                          <div className="text-green-600">
-                            <strong>After:</strong>{" "}
+                {log.changedContents.map((change, i) => {
+                  const { beforeJsx, afterJsx } = highlightDiff(
+                    change.beforeHtml || "",
+                    change.afterHtml || "",
+                  );
+                  return (
+                    <li key={i} className="text-xs w-full max-w-full">
+                      <div className="bg-gray-100 p-2 rounded space-y-1">
+                        {isChanged ? (
+                          <>
+                            <div className="text-red-600">
+                              <strong>Before:</strong>{" "}
+                              <span className="break-all">{beforeJsx}</span>
+                            </div>
+                            <div className="text-green-600">
+                              <strong>After:</strong>{" "}
+                              <span className="break-all">{afterJsx}</span>
+                            </div>
+                          </>
+                        ) : (
+                          <div className="text-gray-700">
+                            <strong>내용:</strong>{" "}
                             <span className="break-all">
                               {change.afterHtml}
                             </span>
                           </div>
-                        </>
-                      ) : (
-                        <div className="text-gray-700">
-                          <strong>내용:</strong>{" "}
-                          <span className="break-all">{change.afterHtml}</span>
-                        </div>
-                      )}
-                    </div>
-                  </li>
-                ))}
+                        )}
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>
