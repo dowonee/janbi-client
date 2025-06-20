@@ -1,4 +1,4 @@
-import { highlightDiff } from "../../utils/historyUtils";
+import { highlightDiff, formatDate } from "../../utils/historyUtils";
 
 export default function HistoryLog({ logs }) {
   if (!logs || logs.length === 0) {
@@ -34,9 +34,7 @@ export default function HistoryLog({ logs }) {
             className="p-4 border rounded hover:bg-gray-50 w-full max-w-full overflow-x-hidden"
           >
             <div className="flex items-center justify-between">
-              <p className="font-medium">
-                {new Date(log.scheduledTime).toLocaleString("ko-KR")}
-              </p>
+              <p className="font-medium">{formatDate(log.scheduledTime)}</p>
               <span className={`px-2 py-0.5 text-xs rounded ${statusStyle}`}>
                 {statusLabel}
               </span>
