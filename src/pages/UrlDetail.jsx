@@ -1,71 +1,29 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchUrlHistory, fetchUrls } from "../api/urlApi";
+import { useState } from "react";
+import { useChangeHistory } from "../hooks/useChangeHistory";
 import UrlHistoryItem from "../components/history/UrlHistoryItem";
+import { mergeDuplicateLogs } from "../utils/historyUtils";
 
 const LOGS_PER_PAGE = 10;
 
 export default function UrlDetail() {
   const { id } = useParams();
-  const [urlInfo, setUrlInfo] = useState(null);
-  const [logs, setLogs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const { urls, urlHistories, loading } = useChangeHistory(id);
 
-  useEffect(() => {
-    if (!id) return;
+  const urlInfo = urls.find((url) => url._id === id);
+  const rawLogs = urlHistories[id] || [];
+  const mergedLogs = mergeDuplicateLogs(rawLogs);
 
-    const loadUrlHistory = async () => {
-      const allUrls = await fetchUrls();
-      const targetUrl = allUrls.urlList.find((url) => url._id === id);
-      const targetHistory = await fetchUrlHistory(id);
-
-      setUrlInfo(targetUrl);
-      const mergedList = sortAndMergeLogs(targetHistory.urlHistoryLogs || []);
-      setLogs(mergedList);
-    };
-
-    loadUrlHistory();
-  }, [id]);
-
-  const sortAndMergeLogs = (rawLogs) => {
-    if (!rawLogs || rawLogs.length === 0) return [];
-
-    const sortedLogs = [...rawLogs].sort(
-      (a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime),
-    );
-
-    const normalize = (log) =>
-      (log.changedContents || []).map((item) => ({
-        selector: item.selector,
-        afterHtml: (item.afterHtml || "").trim(),
-      }));
-
-    const merged = [];
-
-    for (const log of sortedLogs) {
-      const prev = merged[merged.length - 1];
-      if (
-        prev &&
-        prev.isChanged === log.isChanged &&
-        JSON.stringify(normalize(prev)) === JSON.stringify(normalize(log))
-      ) {
-        continue;
-      }
-      merged.push(log);
-    }
-
-    return merged;
-  };
-
-  if (!urlInfo || !logs) {
-    return <p className="p-6">URL 정보를 불러오고 있습니다.</p>;
-  }
-
-  const totalPages = Math.ceil(logs.length / LOGS_PER_PAGE);
-  const paginatedLogs = logs.slice(
+  const totalPages = Math.ceil(mergedLogs.length / LOGS_PER_PAGE);
+  const paginatedLogs = mergedLogs.slice(
     (currentPage - 1) * LOGS_PER_PAGE,
     currentPage * LOGS_PER_PAGE,
   );
+
+  if (loading || !urlInfo) {
+    return <p className="p-6">URL 정보를 불러오고 있습니다.</p>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto p-6">
