@@ -1,45 +1,10 @@
-import { useEffect, useState } from "react";
-import { fetchUrls, fetchUrlHistory } from "../api/urlApi";
 import { useNavigate } from "react-router-dom";
+import { useChangeHistory } from "../hooks/useChangeHistory";
+import { formatDate } from "../utils/historyUtils";
 
 export default function History() {
-  const [urls, setUrls] = useState([]);
-  const [urlHistory, setUrlHistory] = useState({});
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const loadUrlHistory = async () => {
-      const urlRes = await fetchUrls();
-
-      setUrls(urlRes?.urlList ?? []);
-
-      const historyMap = {};
-
-      for (const url of urlRes.urlList) {
-        const { urlHistoryLogs } = await fetchUrlHistory(url._id);
-
-        const sortedLogs = (urlHistoryLogs || []).sort(
-          (a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime),
-        );
-
-        historyMap[url._id] = sortedLogs[0] || null;
-      }
-
-      setUrlHistory(historyMap);
-    };
-
-    loadUrlHistory();
-  }, []);
-
-  const formatDate = (date) =>
-    new Date(date).toLocaleString("ko-KR", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+  const { urls, urlHistories, loading } = useChangeHistory();
 
   const summarizeChange = (changedItems = []) => {
     if (changedItems.length === 0) return "변경된 내용을 확인할 수 없습니다.";
@@ -63,6 +28,10 @@ export default function History() {
     return summaries.join(" / ");
   };
 
+  if (loading) {
+    return <p className="p-6">변경 내역을 불러오는 중입니다...</p>;
+  }
+
   return (
     <div className="max-w-6xl mx-auto bg-white p-6 rounded shadow-sm">
       <h2 className="text-xl font-bold mb-6 text-gray-800">변경 내역</h2>
@@ -72,9 +41,10 @@ export default function History() {
       ) : (
         <div className="space-y-4">
           {urls.map((url) => {
-            const log = urlHistory[url._id];
-            const isChanged = log?.isChanged;
-            const changedContents = log?.changedContents || [];
+            const logs = urlHistories[url._id] || [];
+            const latestLog = logs?.[0];
+            const isChanged = latestLog?.isChanged;
+            const changedContents = latestLog?.changedContents || [];
 
             const summaryText = isChanged
               ? summarizeChange(changedContents)
@@ -107,10 +77,10 @@ export default function History() {
                     >
                       {isChanged ? "변경 감지됨" : "변경 없음"}
                     </span>
-                    {log?.scheduledTime && (
+                    {latestLog?.scheduledTime && (
                       <p className="text-gray-500">
                         최근 확인: <br />
-                        {formatDate(log.scheduledTime)}
+                        {formatDate(latestLog.scheduledTime)}
                       </p>
                     )}
                   </div>
