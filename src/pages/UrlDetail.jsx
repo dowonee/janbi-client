@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { useChangeHistory } from "../hooks/useChangeHistory";
 import UrlHistoryItem from "../components/history/UrlHistoryItem";
-import { mergeDuplicateLogs } from "../utils/historyUtils";
+import { mergeDuplicateLogs } from "../utils/historyUtils.jsx";
 
 const LOGS_PER_PAGE = 10;
 

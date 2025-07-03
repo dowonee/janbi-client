@@ -1,4 +1,4 @@
-import { highlightDiff, formatDate } from "../../utils/historyUtils";
+import { highlightDiff, formatDate } from "../../utils/historyUtils.jsx";
 
 export default function HistoryLog({ logs }) {
   if (!logs || logs.length === 0) {

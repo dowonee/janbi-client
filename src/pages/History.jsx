@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useChangeHistory } from "../hooks/useChangeHistory";
-import { formatDate } from "../utils/historyUtils";
+import { formatDate } from "../utils/historyUtils.jsx";
 
 export default function History() {
   const navigate = useNavigate();

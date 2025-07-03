@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchUrls, fetchUrlHistory } from "../api/urlApi";
-import { sortLogsByScheduledTime } from "../utils/historyUtils";
+import { sortLogsByScheduledTime } from "../utils/historyUtils.jsx";
 
 export function useChangeHistory(targetId = null) {
   const [urls, setUrls] = useState([]);
