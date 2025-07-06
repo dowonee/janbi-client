@@ -47,3 +47,34 @@ export function highlightDiff(before = "", after = "") {
     ),
   };
 }
+
+export function mergeDuplicateLogs(rawLogs = []) {
+  if (!rawLogs || rawLogs.length === 0) return [];
+
+  const sortedLogs = [...rawLogs].sort(
+    (a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime),
+  );
+
+  const normalize = (log) =>
+    (log.changedContents || []).map((item) => ({
+      selector: item.selector,
+      afterHtml: (item.afterHtml || "").trim(),
+    }));
+
+  const merged = [];
+
+  for (const log of sortedLogs) {
+    const prev = merged[merged.length - 1];
+
+    const isSame =
+      prev &&
+      prev.isChanged === log.isChanged &&
+      JSON.stringify(normalize(prev)) === JSON.stringify(normalize(log));
+
+    if (!isSame) {
+      merged.push(log);
+    }
+  }
+
+  return merged;
+}
