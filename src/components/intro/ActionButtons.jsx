@@ -28,6 +28,7 @@ export default function ActionButtons() {
         대시보드 바로가기
       </button>
       <a
+        id="install-extension-btn"
         href="https://chromewebstore.google.com/detail/janbi/eeloaclecjkofgdjlnnbnjhcafikdfof"
         className="px-6 py-3 border border-indigo-300 text-indigo-600 text-base font-semibold rounded-lg shadow hover:bg-indigo-50 transition"
       >
