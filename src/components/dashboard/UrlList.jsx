@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchUrls } from "../../api/urlApi";
 import AddUrlModal from "./AddUrlModal";
+import { fetchUrls } from "../../api/urlApi";
+import useModalStore from "../../stores/useModalStore";
 
 export default function UrlList() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [urls, setUrls] = useState([]);
+  const { isModalOpen } = useModalStore();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -76,7 +77,7 @@ export default function UrlList() {
           </>
         )}
       </div>
-      {isModalOpen && <AddUrlModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <AddUrlModal />}
     </div>
   );
 }
