@@ -1,34 +1,16 @@
-import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { History, Settings } from "lucide-react";
-import { fetchUserProfile } from "../../api/urlApi";
 import LogoutButton from "../common/LogoutButton";
-import { useAuth } from "../../hooks/useAuth.jsx";
+import useAuthStore from "../../stores/useAuthStore";
 
 export default function Sidebar() {
   const navigate = useNavigate();
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn } = useAuthStore();
 
   const sidebarMenu = [
     { tabName: "변경내역", to: "/history", icon: <History size={18} /> },
     { tabName: "설정", to: "/settings", icon: <Settings size={18} /> },
   ];
-
-  useEffect(() => {
-    const checkLogin = async () => {
-      try {
-        const res = await fetchUserProfile();
-
-        if (res?.user) {
-          setIsLoggedIn(true);
-        }
-      } catch {
-        setIsLoggedIn(false);
-      }
-    };
-
-    checkLogin();
-  }, []);
 
   return (
     <aside className="w-60 h-screen bg-white border-r shadow-sm p-4 flex flex-col justify-between">
