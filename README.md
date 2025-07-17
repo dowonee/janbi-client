@@ -108,9 +108,10 @@ JANBI 클라이언트는 React + Vite 기반의 대시보드 웹앱으로 FSD(Fe
 | 기술 스택                                                                                                            | 설명                                                                  |
 | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | ![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB&style=flat-square)                    | URL 등록, 변경 이력 조회 등 인터랙션 중심의 UI를 컴포넌트 단위로 구성 |
-| ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white&style=flat-square)                        | 빠른 개발 서버와 번들링을 통해 SPA 환경에서 빠르게 화면 렌더링        |
+| ![Zustand](https://img.shields.io/badge/Zustand-000000?logo=zustand&logoColor=white&style=flat-square)               | 전역 상태 관리 라이브러리로 모달, 로그인 상태를 관리                  |
 | ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-0EA5E9?logo=tailwindcss&logoColor=white&style=flat-square) | 상태 기반 스타일 제어 및 반응형 UI를 빠르게 구성                      |
 | ![Axios](https://img.shields.io/badge/Axios-5A29E4?logo=axios&logoColor=white&style=flat-square)                     | 서버와의 데이터 연동 (URL 등록, 이력 조회 등)                         |
+| ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white&style=flat-square)                        | 빠른 개발 서버와 번들링을 통해 SPA 환경에서 빠르게 화면 렌더링        |
 
 # Development 💻
 
