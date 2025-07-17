@@ -1,10 +1,17 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../dashboard/Sidebar";
 import Header from "../common/Header";
+import useAuthStore from "../../stores/useAuthStore";
 
 export default function AppLayout({ children }) {
+  const { checkLogin } = useAuthStore();
   const location = useLocation();
   const isIntro = location.pathname === "/";
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   return (
     <>
