@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { createUrl } from "../../api/urlApi";
 import { DAYS_OF_WEEK } from "../../utils/constants";
+import useModalStore from "../../stores/useModalStore";
 
-export default function AddUrlModal({ onClose }) {
+export default function AddUrlModal() {
+  const { closeModal } = useModalStore();
   const [urlForm, setUrlForm] = useState({
     name: "",
     url: "",
@@ -18,6 +20,7 @@ export default function AddUrlModal({ onClose }) {
   const handleSubmit = async () => {
     if (!urlForm.name.trim() || !urlForm.url.trim()) {
       alert("이름과 URL을 모두 입력해주세요.");
+
       return;
     }
 
@@ -29,7 +32,7 @@ export default function AddUrlModal({ onClose }) {
 
       alert("URL이 추가되었습니다.");
 
-      onClose();
+      closeModal();
       setUrlForm({
         name: "",
         url: "",
@@ -105,7 +108,7 @@ export default function AddUrlModal({ onClose }) {
         <div className="flex justify-end gap-2">
           <button
             className="text-sm px-3 py-1 border rounded"
-            onClick={onClose}
+            onClick={closeModal}
           >
             닫기
           </button>
