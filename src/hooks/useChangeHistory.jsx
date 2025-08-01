@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUrls, fetchUrlHistoryCursor } from "../api/urlApi";
+import { fetchUrls, fetchUrlHistoryCursor } from "../api/urlApi.ts";
 
 export function useChangeHistory(targetId = null) {
   const [urls, setUrls] = useState([]);

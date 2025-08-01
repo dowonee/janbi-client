@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { fetchUserProfile } from "../api/urlApi";
+import { fetchUserProfile } from "../api/urlApi.ts";
 
 const useAuthStore = create((set) => ({
   isLoggedIn: false,

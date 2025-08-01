@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../api/urlApi";
+import { logout } from "../../api/urlApi.ts";
 
 export default function LogoutButton({ fullWidth = false, onLogout }) {
   const navigate = useNavigate();

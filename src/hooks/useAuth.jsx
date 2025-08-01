@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserProfile } from "../api/urlApi";
+import { fetchUserProfile } from "../api/urlApi.ts";
 
 export function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

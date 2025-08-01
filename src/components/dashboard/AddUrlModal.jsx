@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUrl } from "../../api/urlApi";
+import { createUrl } from "../../api/urlApi.ts";
 import { DAYS_OF_WEEK } from "../../utils/constants";
 import useModalStore from "../../stores/useModalStore";
 

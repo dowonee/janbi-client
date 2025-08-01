@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddUrlModal from "./AddUrlModal";
-import { fetchUrls } from "../../api/urlApi";
+import { fetchUrls } from "../../api/urlApi.ts";
 import useModalStore from "../../stores/useModalStore";
 
 export default function UrlList() {
