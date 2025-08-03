@@ -23,7 +23,7 @@ export function useChangeHistory(targetId: string | null = null) {
 
     try {
       const urlResponse = await fetchUrls();
-      const urlList = urlResponse || [];
+      const urlList = Array.isArray(urlResponse) ? urlResponse : [];
       setUrls(urlList);
 
       const targetUrls = targetId
