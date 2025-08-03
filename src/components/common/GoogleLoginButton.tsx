@@ -1,4 +1,10 @@
-export default function GoogleLoginButton({ center = false }) {
+interface GoogleLoginButtonProps {
+  center?: boolean;
+}
+
+export default function GoogleLoginButton({
+  center = false,
+}: GoogleLoginButtonProps) {
   const handleGoogleLogin = () => {
     window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
   };

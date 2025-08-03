@@ -16,7 +16,9 @@ export async function fetchUrls(): Promise<Url[]> {
   return response.data;
 }
 
-export async function fetchUrlHistory(id: string): Promise<{ url: Url; urlHistoryLogs: ChangeLog[] }> {
+export async function fetchUrlHistory(
+  id: string,
+): Promise<{ url: Url; urlHistoryLogs: ChangeLog[] }> {
   const response = await axiosInstance.get(`/urls/${id}/history`);
 
   return response.data;
@@ -25,14 +27,16 @@ export async function fetchUrlHistory(id: string): Promise<{ url: Url; urlHistor
 export async function fetchUrlHistoryCursor(
   id: string,
   cursor: string | null = null,
-  limit: number = 10
+  limit: number = 10,
 ): Promise<HistoryCursorResponse> {
   const params = new URLSearchParams();
 
   if (cursor) params.append("cursor", cursor);
   params.append("limit", limit.toString());
 
-  const response = await axiosInstance.get<HistoryCursorResponse>(`/urls/${id}/history?${params}`);
+  const response = await axiosInstance.get<HistoryCursorResponse>(
+    `/urls/${id}/history?${params}`,
+  );
   return response.data;
 }
 
