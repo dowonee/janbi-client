@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useChangeHistory } from "../hooks/useChangeHistory";
-import { formatDate } from "../utils/historyUtils.jsx";
+import { formatDate } from "../utils/historyUtils";
+import type { ChangeLog, ChangedContent } from "../types/history";
+import type { Url } from "../types/url";
 
 export default function History() {
   const navigate = useNavigate();
   const { urls, urlHistories, loading } = useChangeHistory();
 
-  const summarizeChange = (changedItems = []) => {
+  const summarizeChange = (changedItems: ChangedContent[] = []): string => {
     if (changedItems.length === 0) return "변경된 내용을 확인할 수 없습니다.";
 
     const summaries = changedItems.slice(0, 3).map((item) => {
