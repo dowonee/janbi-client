@@ -16,7 +16,7 @@ export default function NotFound() {
         아래 버튼을 눌러 대시보드로 돌아가세요.
       </p>
       <button
-        onClick={() => navigate("/dashboard")}
+        onClick={() => navigate("/history")}
         className="px-6 py-3 bg-indigo-600 text-white text-sm font-semibold rounded hover:bg-indigo-700 transition"
       >
         대시보드로 이동
