@@ -3,11 +3,17 @@ import { History, Settings } from "lucide-react";
 import LogoutButton from "../common/LogoutButton";
 import useAuthStore from "../../stores/useAuthStore";
 
+interface SidebarMenuItem {
+  tabName: string;
+  to: string;
+  icon: React.ReactNode;
+}
+
 export default function Sidebar() {
   const navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
 
-  const sidebarMenu = [
+  const sidebarMenu: SidebarMenuItem[] = [
     { tabName: "변경내역", to: "/history", icon: <History size={18} /> },
     { tabName: "설정", to: "/settings", icon: <Settings size={18} /> },
   ];
@@ -26,7 +32,7 @@ export default function Sidebar() {
             <NavLink
               key={item.to}
               to={item.to}
-              className={({ isActive }) =>
+              className={({ isActive }: { isActive: boolean }) =>
                 `flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-100 text-sm font-medium transition ${
                   isActive ? "bg-gray-100 text-primary" : "text-gray-700"
                 }`
