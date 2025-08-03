@@ -1,7 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../api/urlApi.ts";
+import { logout } from "../../api/urlApi";
 
-export default function LogoutButton({ fullWidth = false, onLogout }) {
+interface LogoutButtonProps {
+  onLogout: () => void;
+  fullWidth?: boolean;
+}
+
+export default function LogoutButton({
+  fullWidth = false,
+  onLogout,
+}: LogoutButtonProps) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -14,7 +22,8 @@ export default function LogoutButton({ fullWidth = false, onLogout }) {
 
       navigate("/");
     } catch (err) {
-      alert("로그아웃에 실패했습니다.", err);
+      alert("로그아웃에 실패했습니다.");
+      console.error(err);
     }
   };
 
