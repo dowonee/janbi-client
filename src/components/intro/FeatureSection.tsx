@@ -1,6 +1,12 @@
 import { ClockIcon, EyeIcon, MailIcon } from "lucide-react";
 
-const features = [
+interface Feature {
+  name: string;
+  description: string;
+  icon: React.ElementType;
+}
+
+const features: Feature[] = [
   {
     name: "모니터링 요소 변경 감지",
     description:
