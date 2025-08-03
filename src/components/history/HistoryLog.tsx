@@ -1,7 +1,12 @@
-import { highlightDiff, formatDate } from "../../utils/historyUtils.jsx";
+import { highlightDiff, formatDate } from "../../utils/historyUtils";
+import type { ChangeLog } from "../../types/history";
 
-export default function HistoryLog({ logs }) {
-  if (!logs || logs.length === 0) {
+interface HistoryLogProps {
+  logs: ChangeLog[];
+}
+
+export default function HistoryLog({ logs }: HistoryLogProps) {
+  if (logs.length === 0) {
     return (
       <div className="p-4 border rounded text-sm text-gray-500 bg-gray-50">
         <p>저장된 변경 이력이 없습니다.</p>
