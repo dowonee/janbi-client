@@ -38,63 +38,68 @@ export default function History() {
     <div className="max-w-6xl mx-auto bg-white p-6 rounded shadow-sm">
       <h2 className="text-xl font-bold mb-6 text-gray-800">변경 내역</h2>
 
-      {urls.length === 0 ? (
+      {Array.isArray(urls) && urls.length === 0 ? (
         <p className="text-sm text-gray-500">등록된 URL이 없습니다.</p>
       ) : (
         <div className="space-y-4">
-          {urls.map((url: Url) => {
-            const logs: ChangeLog[] = urlHistories[url._id] || [];
-            const latestLog = logs?.[0];
-            const isChanged = latestLog?.isChanged;
-            const changedContents = latestLog?.changedContents || [];
+          {Array.isArray(urls) &&
+            urls.map((url: Url) => {
+              const logs: ChangeLog[] = Array.isArray(urlHistories[url._id])
+                ? urlHistories[url._id]
+                : [];
+              const latestLog = logs?.[0];
+              const isChanged = latestLog?.isChanged;
+              const changedContents = latestLog?.changedContents || [];
 
-            const summaryText = isChanged
-              ? summarizeChange(changedContents)
-              : "변경된 내용이 없습니다.";
+              const summaryText = isChanged
+                ? summarizeChange(changedContents)
+                : "변경된 내용이 없습니다.";
 
-            return (
-              <div
-                key={url._id}
-                onClick={() => navigate(`/history/${url._id}`)}
-                className={`p-4 border rounded cursor-pointer hover:bg-gray-50 transition ${
-                  isChanged
-                    ? "border-blue-300 bg-blue-50/10"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
-                      {url.name}
-                    </h3>
-                    <p className="text-sm text-gray-600 break-all">{url.url}</p>
-                  </div>
-                  <div className="text-sm text-right space-y-1">
-                    <span
-                      className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
-                        isChanged
-                          ? "bg-blue-100 text-blue-800"
-                          : "bg-gray-100 text-gray-500"
-                      }`}
-                    >
-                      {isChanged ? "변경 감지됨" : "변경 없음"}
-                    </span>
-                    {latestLog?.scheduledTime && (
-                      <p className="text-gray-500">
-                        최근 확인: <br />
-                        {formatDate(latestLog.scheduledTime)}
+              return (
+                <div
+                  key={url._id}
+                  onClick={() => navigate(`/history/${url._id}`)}
+                  className={`p-4 border rounded cursor-pointer hover:bg-gray-50 transition ${
+                    isChanged
+                      ? "border-blue-300 bg-blue-50/10"
+                      : "border-gray-200"
+                  }`}
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800">
+                        {url.name}
+                      </h3>
+                      <p className="text-sm text-gray-600 break-all">
+                        {url.url}
                       </p>
-                    )}
+                    </div>
+                    <div className="text-sm text-right space-y-1">
+                      <span
+                        className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                          isChanged
+                            ? "bg-blue-100 text-blue-800"
+                            : "bg-gray-100 text-gray-500"
+                        }`}
+                      >
+                        {isChanged ? "변경 감지됨" : "변경 없음"}
+                      </span>
+                      {latestLog?.scheduledTime && (
+                        <p className="text-gray-500">
+                          최근 확인: <br />
+                          {formatDate(latestLog.scheduledTime)}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-3 text-sm text-gray-700">
+                    <p className="font-medium mb-1">요약</p>
+                    <p className="text-xs text-gray-600">{summaryText}</p>
                   </div>
                 </div>
-
-                <div className="mt-3 text-sm text-gray-700">
-                  <p className="font-medium mb-1">요약</p>
-                  <p className="text-xs text-gray-600">{summaryText}</p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       )}
     </div>
