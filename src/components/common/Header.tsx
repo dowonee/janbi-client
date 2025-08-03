@@ -1,6 +1,6 @@
 import GoogleLoginButton from "./GoogleLoginButton";
 import LogoutButton from "./LogoutButton";
-import { useAuth } from "../../hooks/useAuth.jsx";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Header() {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
