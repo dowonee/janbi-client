@@ -3,3 +3,7 @@ export interface UserProfile {
   name: string;
   email: string;
 }
+
+export interface UserProfileResponse {
+  user: UserProfile;
+}
