@@ -11,9 +11,9 @@ const axiosInstance = axios.create({
 });
 
 export async function fetchUrls(): Promise<Url[]> {
-  const response = await axiosInstance.get<Url[]>("/urls");
+  const response = await axiosInstance.get<{ urlList: Url[] }>("/urls");
 
-  return response.data;
+  return response.data.urlList;
 }
 
 export async function fetchUrlHistory(
