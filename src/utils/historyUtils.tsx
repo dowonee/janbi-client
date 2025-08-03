@@ -1,10 +1,14 @@
-export function sortLogsByScheduledTime(logs = []) {
+import { JSX } from "react";
+import type { ChangeLog, ChangedContent } from "../types/history";
+
+export function sortLogsByScheduledTime(logs: ChangeLog[] = []): ChangeLog[] {
   return [...logs].sort(
-    (a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime),
+    (a, b) =>
+      new Date(b.scheduledTime).getTime() - new Date(a.scheduledTime).getTime(),
   );
 }
 
-export function formatDate(date) {
+export function formatDate(date: string): string {
   return new Date(date).toLocaleString("ko-KR", {
     year: "numeric",
     month: "2-digit",
@@ -15,7 +19,10 @@ export function formatDate(date) {
   });
 }
 
-export function highlightDiff(before = "", after = "") {
+export function highlightDiff(
+  before: string = "",
+  after: string = "",
+): { beforeJsx: JSX.Element; afterJsx: JSX.Element } {
   let diffIndex = 0;
 
   while (
@@ -48,20 +55,21 @@ export function highlightDiff(before = "", after = "") {
   };
 }
 
-export function mergeDuplicateLogs(rawLogs = []) {
-  if (!rawLogs || rawLogs.length === 0) return [];
+export function mergeDuplicateLogs(rawLogs: ChangeLog[] = []): ChangeLog[] {
+  if (rawLogs.length === 0) return [];
 
   const sortedLogs = [...rawLogs].sort(
-    (a, b) => new Date(b.scheduledTime) - new Date(a.scheduledTime),
+    (a, b) =>
+      new Date(b.scheduledTime).getTime() - new Date(a.scheduledTime).getTime(),
   );
 
-  const normalize = (log) =>
+  const normalize = (log: ChangeLog) =>
     (log.changedContents || []).map((item) => ({
       selector: item.selector,
       afterHtml: (item.afterHtml || "").trim(),
     }));
 
-  const merged = [];
+  const merged: ChangeLog[] = [];
 
   for (const log of sortedLogs) {
     const prev = merged[merged.length - 1];
