@@ -42,8 +42,8 @@ export default function History() {
         <p className="text-sm text-gray-500">등록된 URL이 없습니다.</p>
       ) : (
         <div className="space-y-4">
-          {urls.map((url) => {
-            const logs = urlHistories[url._id] || [];
+          {urls.map((url: Url) => {
+            const logs: ChangeLog[] = urlHistories[url._id] || [];
             const latestLog = logs?.[0];
             const isChanged = latestLog?.isChanged;
             const changedContents = latestLog?.changedContents || [];
