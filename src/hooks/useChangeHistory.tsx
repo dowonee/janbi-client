@@ -1,19 +1,29 @@
 import { useEffect, useState } from "react";
-import { fetchUrls, fetchUrlHistoryCursor } from "../api/urlApi.ts";
+import { fetchUrls, fetchUrlHistoryCursor } from "../api/urlApi";
+import type { Url } from "../types/url";
+import type { ChangeLog, HistoryCursorResponse } from "../types/history";
 
-export function useChangeHistory(targetId = null) {
-  const [urls, setUrls] = useState([]);
-  const [urlHistories, setUrlHistories] = useState({});
-  const [nextCursors, setNextCursors] = useState({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+interface UrlHistories {
+  [key: string]: ChangeLog[];
+}
+
+interface NextCursors {
+  [key: string]: string | null;
+}
+
+export function useChangeHistory(targetId: string | null = null) {
+  const [urls, setUrls] = useState<Url[]>([]);
+  const [urlHistories, setUrlHistories] = useState<UrlHistories>({});
+  const [nextCursors, setNextCursors] = useState<NextCursors>({});
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
 
   const fetchInitial = async () => {
     setLoading(true);
 
     try {
       const urlResponse = await fetchUrls();
-      const urlList = urlResponse?.urlList || [];
+      const urlList = urlResponse || [];
       setUrls(urlList);
 
       const targetUrls = targetId
@@ -32,8 +42,8 @@ export function useChangeHistory(targetId = null) {
         }),
       );
 
-      const histories = {};
-      const cursors = {};
+      const histories: UrlHistories = {};
+      const cursors: NextCursors = {};
 
       fetchedHistory.forEach(({ id, logs, nextCursor }) => {
         histories[id] = logs;
@@ -45,28 +55,29 @@ export function useChangeHistory(targetId = null) {
     } catch (err) {
       console.error("초기 히스토리 로딩 실패", err);
 
-      setError(err);
+      setError(err instanceof Error ? err : new Error("Fetch Error"));
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchMore = async (id) => {
+  const fetchMore = async (id: string) => {
     const cursor = nextCursors[id];
 
     if (!cursor) return;
 
     try {
-      const res = await fetchUrlHistoryCursor(id, cursor);
+      const historyResponse: HistoryCursorResponse =
+        await fetchUrlHistoryCursor(id, cursor);
 
       setUrlHistories((prev) => ({
         ...prev,
-        [id]: [...(prev[id] || []), ...res.urlHistoryLogs],
+        [id]: [...(prev[id] || []), ...historyResponse.urlHistoryLogs],
       }));
 
       setNextCursors((prev) => ({
         ...prev,
-        [id]: res.nextCursor,
+        [id]: historyResponse.nextCursor,
       }));
     } catch (err) {
       console.error("히스토리 추가 로딩 실패", err);
