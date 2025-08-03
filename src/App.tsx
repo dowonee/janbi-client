@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
-import Dashboard from "./pages/Dashboard";
 import IntroPage from "./pages/Intro";
 import History from "./pages/History";
 import UrlDetail from "./pages/UrlDetail";
@@ -26,14 +25,6 @@ export default function App() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/login" element={<Login />} />
         <Route path="/auth/success" element={<AuthSuccess />} />
-        <Route
-          path="/dashboard"
-          element={
-            <AppLayout>
-              <Dashboard />
-            </AppLayout>
-          }
-        />
         <Route
           path="/history"
           element={
