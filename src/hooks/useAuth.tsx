@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserProfile } from "../api/urlApi.ts";
+import { fetchUserProfile } from "../api/urlApi.js";
 
 export function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -7,9 +7,9 @@ export function useAuth() {
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
-        const profile = await fetchUserProfile();
+        const { user } = await fetchUserProfile();
 
-        if (profile?.user) {
+        if (user && user?._id) {
           setIsLoggedIn(true);
         }
       } catch {
