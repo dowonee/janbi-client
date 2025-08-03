@@ -12,7 +12,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["react", "vite/client"]
   },
   "include": ["src"]
 }
