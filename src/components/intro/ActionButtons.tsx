@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth.jsx";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function ActionButtons() {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
 
-  const handleDashboardClick = () => {
+  const handleDashboardClick = (): void => {
     if (isLoggedIn) {
       navigate("/history");
     } else {
@@ -13,7 +13,7 @@ export default function ActionButtons() {
     }
   };
 
-  const handleSlackAddButtonClick = () => {
+  const handleSlackAddButtonClick = (): void => {
     const slackAuthUrl = `https://slack.com/oauth/v2/authorize?client_id=${import.meta.env.VITE_SLACK_CLIENT_ID}&scope=chat:write,incoming-webhook&redirect_uri=${import.meta.env.VITE_SLACK_REDIRECT_URI}`;
 
     window.location.href = slackAuthUrl;
